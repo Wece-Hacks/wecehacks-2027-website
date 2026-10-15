@@ -1,0 +1,137 @@
+/* ==========================================================================
+   WECEHacks 2027 — styles shared by every page (header, fonts, theme)
+   Page-specific styles live next to each page (index.css, pages/*.css).
+   ========================================================================== */
+
+:root {
+  --bg: #0f0f13;
+  --text: #eef2f7;
+  --muted: hsl(214, 15%, 69%);
+  --gold: #dbbd8e;
+  --parchment: #d6c39f;
+  --heading: #ebe5dc;
+  --body-text: #dcc9a7;
+  --accent: #6f2806;
+  --accent-2: #866104;
+  --success: #b76920;
+  --panel: linear-gradient(to bottom, rgba(40, 30, 15, 0.9), rgba(15, 10, 5, 0.9));
+  --card: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  --radius: 12px;
+  --max-width: 1100px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Libre Baskerville', serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text);
+  background-color: #000000;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: top center;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ---------- Header ---------- */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px 0;
+  background-color: transparent;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* When scrolled, header background turns black */
+.header.scrolled {
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.header a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header a:hover,
+.header a.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #f0f0f0;
+}
+
+/* ---------- Page title images (Prizes, Schedule, FAQ, Our Team) ---------- */
+
+.page-title {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 50px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.page-title img {
+  width: min(420px, 80%);
+  height: auto;
+}
+
+/* ---------- Shared bits ---------- */
+
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: white;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+.notice {
+  width: min(90%, 760px);
+  margin: 0 auto 30px;
+  padding: 14px 20px;
+  text-align: center;
+  color: var(--body-text);
+  background: var(--panel);
+  border: 1px solid rgba(219, 189, 142, 0.35);
+  border-radius: var(--radius);
+}
+
+@media (max-width: 600px) {
+  .header {
+    justify-content: center;
+    gap: 4px;
+    padding: 12px 0;
+  }
+
+  .header a {
+    font-size: 14px;
+    padding: 5px 8px;
+  }
+}

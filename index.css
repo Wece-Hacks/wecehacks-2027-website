@@ -1,0 +1,141 @@
+/* Home page */
+
+body {
+  background-image: url('images/backgrounds/treasure_background.png');
+}
+
+/* ---------- Hero title ---------- */
+
+.hero {
+  width: 90%;
+  padding-top: 200px;
+  text-align: center;
+}
+
+/* Recreates the orange-to-yellow comic title from the 2026 logo */
+.hero-title {
+  margin: 0;
+  font-family: 'Bangers', 'Cinzel', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(3rem, 11vw, 8rem);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  background: linear-gradient(to bottom, #f07a1a 0%, #ffd400 55%, #fff6c4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 2px #000;
+  filter: drop-shadow(5px 5px 0 #000);
+}
+
+/* ---------- Countdown ---------- */
+
+.countdown {
+  width: min(90%, 760px);
+  padding: 0 20px 40px;
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+}
+
+#date h2 {
+  margin: 0.4em 0;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+}
+
+#timer {
+  font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+  font-weight: bold;
+  text-shadow:
+    0 0 8px rgba(203, 162, 123, 0.5),
+    0 0 16px rgba(203, 162, 123, 0.3);
+}
+
+/* ---------- Content panels ---------- */
+
+.intro-section,
+.sponsors-section {
+  width: min(90%, 1000px);
+  padding: 30px;
+  background: var(--panel);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.intro-section {
+  margin-top: 140px;
+}
+
+.sponsors-section {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.intro-section h1,
+.sponsors-section h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  letter-spacing: 0.06em;
+  color: var(--heading);
+}
+
+.intro-section p,
+.sponsors-section p {
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  line-height: 1.6;
+  color: var(--body-text);
+}
+
+#registration-button {
+  margin-top: 10px;
+  padding: 10px 24px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  color: white;
+  background-color: #000000;
+  border: 2px solid var(--gold);
+  border-radius: 200px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#registration-button:hover:not(:disabled) {
+  background-color: var(--gold);
+  color: #000;
+}
+
+#registration-button:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.sponsor-images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.sponsor-images img {
+  max-width: 140px;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding-top: 120px;
+  }
+
+  .intro-section {
+    margin-top: 80px;
+  }
+
+  .intro-section,
+  .sponsors-section {
+    padding: 20px 16px;
+  }
+}

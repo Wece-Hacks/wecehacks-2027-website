@@ -1,0 +1,65 @@
+/* Prizes page */
+
+body {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('../images/backgrounds/jungle_background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.prizes-section {
+  width: 100%;
+  padding-bottom: 80px;
+}
+
+.prizes-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.prize {
+  background: var(--card);
+  border-radius: var(--radius);
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.prize:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.prize img {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.prize h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+
+@media (max-width: 980px) {
+  .prizes-container { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .prizes-container {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+}
