@@ -1,89 +1,495 @@
-/* Schedule page */
+/* Schedule page — casino card theme */
+
+:root {
+  --felt: #a8302c;
+  --felt-dark: #5e1412;
+  --ivory: #fbf7ef;
+  --ink: #1b1b1b;
+  --ink-soft: #6b5e4e;
+  --suit-red: #b3202a;
+  --gold: #d9b45a;
+}
 
 body {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url('../images/backgrounds/stoneball_background.png');
+  /* Red casino felt. Swap in a background image here if your team makes one. */
+  background:
+    radial-gradient(ellipse at 50% 30%, var(--felt) 0%, #8a221f 55%, var(--felt-dark) 100%) fixed;
   line-height: 1.45;
 }
 
+/* ---------- Background chips & dice ---------- */
+
+.table-decor {
+  position: fixed;     /* stays put while the cards scroll over it */
+  inset: 0;
+  z-index: -1;         /* behind all page content */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.decor {
+  --k: 1;              /* size multiplier, shrunk on small screens */
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(var(--s) * var(--k));
+  height: calc(var(--s) * var(--k));
+  transform: rotate(var(--r, 0deg));
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.4));
+}
+
+/* currentColor = chip body, --chip-edge = the stripes */
+.chip-red   { color: #7d1414; --chip-edge: #fbf7ef; }
+.chip-black { color: #161616; --chip-edge: #fbf7ef; }
+.chip-gold  { color: #c9a13f; --chip-edge: #3a2a08; }
+.chip-ivory { color: #f2ece0; --chip-edge: #b3202a; }
+
+@media (max-width: 760px) {
+  .decor { --k: 0.6; }
+  .decor-extra { display: none; }
+}
+
+/* ---------- Marquee title ---------- */
+
+.page-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.marquee {
+  position: relative;
+  margin: 28px 0 0;
+  padding: 26px clamp(28px, 6vw, 64px) 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(180deg, #1d0807, #2c0c0b);
+  border: 3px solid var(--gold);
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 6px #2c0c0b,
+    0 0 0 8px rgba(217, 180, 90, 0.5),
+    0 20px 50px rgba(0, 0, 0, 0.55);
+}
+
+/* Light bulbs around the frame.
+   Two layers of dots, offset from each other; they take turns glowing
+   to make the "chasing lights" effect. The mask keeps them to a 14px frame. */
+.marquee::before,
+.marquee::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  padding: 10px;
+  border-radius: 14px;
+  background: radial-gradient(circle, #fff3c4 0 3px, #f5c64e 3.5px, transparent 5px) 0 0 / 22px 22px;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  filter: drop-shadow(0 0 4px rgba(255, 210, 100, 0.9));
+  pointer-events: none;
+  animation: bulbs 1.2s steps(1) infinite;
+}
+
+.marquee::after {
+  background-position: 11px 11px;
+  animation-delay: -0.6s;
+}
+
+.marquee-kicker {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  opacity: 0.85;
+}
+
+.marquee-word {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.4rem, 9vw, 5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  /* gold foil lettering */
+  background: linear-gradient(180deg, #fff2c2 0%, #f0c95c 45%, #b8862b 55%, #f6d77d 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 10px rgba(240, 190, 80, 0.45)) drop-shadow(0 3px 0 #000);
+}
+
+.marquee-suits {
+  font-size: clamp(0.9rem, 2.4vw, 1.2rem);
+  letter-spacing: 0.6em;
+  margin-right: -0.6em;  /* balance the trailing letter-spacing */
+  color: var(--gold);
+}
+
+.marquee-tagline {
+  margin: 18px 0 0;
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+  color: var(--ivory);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes bulbs {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.25; }
+}
+
+@media (max-width: 520px) {
+  .marquee::before,
+  .marquee::after {
+    background-size: 18px 18px;
+  }
+  .marquee::after {
+    background-position: 9px 9px;
+  }
+}
+
+/* ---------- Schedule section ---------- */
+
 .schedule-section {
-  width: min(90%, 1000px);
-  margin-bottom: 30px;
+  width: min(90%, 1100px);
+  margin: 0 auto 30px;
   padding-bottom: 100px;
 }
 
-.timetable {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
+/* ---------- Day headers ---------- */
 
-.day-header h2 {
-  margin: 24px 0 12px;
-  padding-bottom: 6px;
+.day-header {
+  margin: 32px 0 20px;
+  padding-bottom: 8px;
   font-family: 'Cinzel', serif;
   font-size: clamp(2rem, 6vw, 3rem);
-  color: var(--heading);
+  color: var(--ivory);
   text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  text-shadow: 2px 5px 1px rgba(0, 0, 0, 0.9);
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid rgba(217, 180, 90, 0.35);
+  text-shadow: 2px 4px 2px rgba(0, 0, 0, 0.6);
 }
 
-.slot {
+/* ---------- Card grid ---------- */
+
+.hand {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 14px;
-  padding: 14px;
-  align-items: start;
-  border-radius: var(--radius);
-  background: var(--card);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  transition: transform 0.14s ease, box-shadow 0.14s ease;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 24px;
 }
 
-.slot:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+/* ---------- Suits by event type ----------
+   Each type sets two variables the card (and pop-up) read from.
+   \FE0E forces the plain text symbol instead of an emoji on phones. */
+
+.event-card,
+.event-modal          { --suit: "\2663\FE0E"; --suit-color: var(--ink); }      /* club */
+.keynote              { --suit: "\2660\FE0E"; --suit-color: var(--ink); }      /* spade */
+.workshop             { --suit: "\2666\FE0E"; --suit-color: var(--suit-red); } /* diamond */
+.social               { --suit: "\2665\FE0E"; --suit-color: var(--suit-red); } /* heart */
+
+/* ---------- The card itself ---------- */
+
+.event-card {
+  /* "Dealt" onto the table on page load; --i is set per card in schedule.js */
+  animation: deal 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
 }
 
-.slot .time {
-  color: var(--muted);
-  font-size: 13px;
-  white-space: nowrap;
-}
+.card-face {
+  /* reset default button styles */
+  appearance: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
 
-.slot .event {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 7;
+  padding: 36px 18px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  color: var(--ink);
+  background: var(--ivory);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.15),
+    0 10px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.slot .title {
+/* Thin inner border, like a printed card */
+.card-face::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.keynote .card-face::after {
+  border: 2px solid var(--gold);
+}
+
+/* Big faded suit in the middle of the card */
+.card-face::before {
+  content: var(--suit);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 8rem;
+  line-height: 1;
+  color: var(--suit-color);
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.card-face:hover {
+  transform: translateY(-8px) rotate(-1.5deg);
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.15),
+    0 18px 36px rgba(0, 0, 0, 0.45);
+}
+
+.card-face:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* Corner suits */
+.corner {
+  position: absolute;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--suit-color);
+}
+
+.corner::before {
+  content: var(--suit);
+}
+
+.corner-top {
+  top: 14px;
+  left: 14px;
+}
+
+.corner-bottom {
+  bottom: 14px;
+  right: 14px;
+  transform: rotate(180deg);
+}
+
+/* Card text */
+.card-face .time {
+  position: relative;
+  font-size: 0.75rem;
   font-weight: 600;
-  font-size: 15px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
 
-.slot .meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.card-face .title {
+  position: relative;
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.25;
 }
 
-/* Slot types */
-.keynote,
-.workshop,
-.social {
-  padding-left: 10px;
+.card-face .badge,
+.modal-badge {
+  position: relative;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  background: var(--suit-color);
+  border-radius: 999px;
 }
 
-.keynote { border-left: 4px solid var(--accent); }
-.workshop { border-left: 4px solid #683606; }
-.social { border-left: 4px solid var(--success); }
+/* ---------- Pop-up ---------- */
 
-@media (max-width: 760px) {
-  .slot {
-    grid-template-columns: 1fr;
-    gap: 4px;
+.event-modal {
+  width: min(92vw, 560px);
+  max-height: 85vh;
+  padding: 0;            /* padding lives on .modal-inner so backdrop clicks are detectable */
+  border: none;
+  border-radius: 16px;
+  color: var(--ink);
+  background: var(--ivory);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.event-modal[open] {
+  animation: flip-in 0.28s ease-out;
+}
+
+.event-modal::backdrop {
+  background: rgba(20, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
+}
+
+.modal-inner {
+  position: relative;
+  padding: 44px 32px 32px;
+  border-top: 6px solid var(--suit-color);
+}
+
+.modal-inner::before {
+  content: var(--suit);
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--suit-color);
+}
+
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--ink);
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+.modal-close:focus-visible {
+  outline: 3px solid var(--gold);
+}
+
+.modal-time {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.modal-title {
+  margin: 0 0 12px;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  line-height: 1.2;
+}
+
+.modal-badge:empty {
+  display: none;
+}
+
+.modal-body {
+  margin-top: 20px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.modal-body .tbd {
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* Stop the page behind from scrolling while the pop-up is open */
+body:has(.event-modal[open]) {
+  overflow: hidden;
+}
+
+/* ---------- Animations ---------- */
+
+@keyframes deal {
+  from {
+    opacity: 0;
+    transform: translateY(-40px) rotate(-8deg) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes flip-in {
+  from {
+    opacity: 0;
+    transform: perspective(800px) rotateX(14deg) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-card,
+  .event-modal[open],
+  .marquee::before,
+  .marquee::after {
+    animation: none;
+  }
+  .card-face {
+    transition: none;
+  }
+  .card-face:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 520px) {
+  .hand {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .card-face {
+    padding: 30px 10px;
+    gap: 8px;
+  }
+
+  .card-face .title {
+    font-size: 0.9rem;
+  }
+
+  .card-face .time {
+    font-size: 0.65rem;
+  }
+
+  .card-face::before {
+    font-size: 5.5rem;
+  }
+
+  .modal-inner {
+    padding: 44px 22px 26px;
   }
 }

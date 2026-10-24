@@ -15,6 +15,62 @@
 
 <body>
 
+  <!--
+    Background decorations: chips and dice scattered on the table.
+    The <symbol>s are drawn once; each <svg class="decor"> reuses one with <use>.
+    Position/size/rotation come from the inline CSS variables:
+      --x, --y = position on screen   --s = size   --r = rotation
+    Add "decor-extra" to hide an item on small screens.
+  -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="chip" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="currentColor" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+        <circle cx="50" cy="50" r="42" fill="none" style="stroke: var(--chip-edge, #fff)" stroke-width="12" pathLength="120" stroke-dasharray="10 10"/>
+        <circle cx="50" cy="50" r="32" fill="none" style="stroke: var(--chip-edge, #fff)" stroke-width="1.5" opacity="0.8"/>
+        <circle cx="50" cy="50" r="27" fill="currentColor"/>
+        <circle cx="50" cy="50" r="23" fill="none" style="stroke: var(--chip-edge, #fff)" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
+      </symbol>
+
+      <symbol id="die-2" viewBox="0 0 100 100">
+        <rect x="4" y="4" width="92" height="92" rx="18" fill="#fbf7ef" stroke="rgba(0,0,0,0.18)" stroke-width="2"/>
+        <g fill="#1b1b1b"><circle cx="28" cy="28" r="8"/><circle cx="72" cy="72" r="8"/></g>
+      </symbol>
+      <symbol id="die-3" viewBox="0 0 100 100">
+        <rect x="4" y="4" width="92" height="92" rx="18" fill="#fbf7ef" stroke="rgba(0,0,0,0.18)" stroke-width="2"/>
+        <g fill="#1b1b1b"><circle cx="28" cy="28" r="8"/><circle cx="50" cy="50" r="8"/><circle cx="72" cy="72" r="8"/></g>
+      </symbol>
+      <symbol id="die-5" viewBox="0 0 100 100">
+        <rect x="4" y="4" width="92" height="92" rx="18" fill="#fbf7ef" stroke="rgba(0,0,0,0.18)" stroke-width="2"/>
+        <g fill="#1b1b1b"><circle cx="28" cy="28" r="8"/><circle cx="72" cy="28" r="8"/><circle cx="50" cy="50" r="8"/><circle cx="28" cy="72" r="8"/><circle cx="72" cy="72" r="8"/></g>
+      </symbol>
+      <symbol id="die-6" viewBox="0 0 100 100">
+        <rect x="4" y="4" width="92" height="92" rx="18" fill="#fbf7ef" stroke="rgba(0,0,0,0.18)" stroke-width="2"/>
+        <g fill="#1b1b1b"><circle cx="28" cy="26" r="8"/><circle cx="28" cy="50" r="8"/><circle cx="28" cy="74" r="8"/><circle cx="72" cy="26" r="8"/><circle cx="72" cy="50" r="8"/><circle cx="72" cy="74" r="8"/></g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="table-decor" aria-hidden="true">
+    <!-- left side -->
+    <svg class="decor chip-black" style="--x:2%;  --y:6%;  --s:96px; --r:12deg"><use href="#chip"/></svg>
+    <svg class="decor chip-red"   style="--x:7%;  --y:14%; --s:70px; --r:-20deg"><use href="#chip"/></svg>
+    <svg class="decor die"        style="--x:4%;  --y:33%; --s:58px; --r:18deg"><use href="#die-5"/></svg>
+    <svg class="decor chip-ivory decor-extra" style="--x:-2%; --y:48%; --s:110px; --r:5deg"><use href="#chip"/></svg>
+    <svg class="decor chip-gold"  style="--x:6%;  --y:64%; --s:72px; --r:-8deg"><use href="#chip"/></svg>
+    <svg class="decor die decor-extra" style="--x:9%; --y:70%; --s:48px; --r:-32deg"><use href="#die-2"/></svg>
+    <svg class="decor chip-red"   style="--x:1%;  --y:84%; --s:88px; --r:30deg"><use href="#chip"/></svg>
+
+    <!-- right side -->
+    <svg class="decor die"        style="--x:90%; --y:5%;  --s:60px; --r:-14deg"><use href="#die-6"/></svg>
+    <svg class="decor chip-red"   style="--x:86%; --y:20%; --s:100px; --r:8deg"><use href="#chip"/></svg>
+    <svg class="decor chip-black decor-extra" style="--x:94%; --y:36%; --s:76px; --r:-25deg"><use href="#chip"/></svg>
+    <svg class="decor chip-gold"  style="--x:89%; --y:52%; --s:92px; --r:15deg"><use href="#chip"/></svg>
+    <svg class="decor die decor-extra" style="--x:85%; --y:68%; --s:52px; --r:24deg"><use href="#die-3"/></svg>
+    <svg class="decor chip-ivory" style="--x:92%; --y:74%; --s:84px; --r:-6deg"><use href="#chip"/></svg>
+    <svg class="decor chip-black" style="--x:87%; --y:90%; --s:70px; --r:40deg"><use href="#chip"/></svg>
+  </div>
+
   <!-- Header -->
   <nav class="header">
     <a href="../index.html">Home</a>
@@ -24,134 +80,235 @@
     <a href="ourteam.html">Our Team</a>
   </nav>
 
-  <!-- Page Title -->
+  <!-- Page Title: casino marquee sign -->
   <div class="page-title">
-    <img src="../images/titles/schedule.png" alt="Schedule">
+    <h1 class="marquee">
+      <span class="marquee-kicker">WECEHacks 2027</span>
+      <span class="marquee-word">Schedule</span>
+      <span class="marquee-suits" aria-hidden="true">&#9824;&#xFE0E; &#9829;&#xFE0E; &#9830;&#xFE0E; &#9827;&#xFE0E;</span>
+    </h1>
+    <p class="marquee-tagline">Every heist needs a plan.</p>
   </div>
 
-  <!-- TODO: remove this notice once the 2027 schedule below is final -->
-  <p class="notice">The 2027 schedule is still being planned. Here's a look at last year's to give you an idea!</p>
 
-  <!-- Schedule Section
-       Slot types: add "keynote", "workshop", or "social" to a .slot for a colored edge. -->
+  <!--
+    Schedule Section
+
+    Each event is one <li class="event-card">.
+      - Add "keynote", "workshop", or "social" to the <li> to change its suit:
+          keynote = spade, workshop = diamond, social = heart, (none) = club
+      - The <template class="details"> holds what shows in the pop-up.
+        Put any HTML in there (paragraphs, lists, room numbers, links).
+        It is not displayed on the page until the card is clicked.
+  -->
   <section class="schedule-section">
-    <div class="timetable">
 
-      <!-- Saturday -->
-      <div class="day-header"><h2>Saturday</h2></div>
+    <!-- Saturday -->
+    <div class="day">
+      <h2 class="day-header">Saturday</h2>
+      <ul class="hand">
 
-      <div class="slot">
-        <div class="time">9:30 AM - 9:45 AM</div>
-        <div class="event">
-          <div class="title">Setup and Team Check-In</div>
-        </div>
-      </div>
+        <li class="event-card">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">9:30 AM – 9:45 AM</span>
+            <span class="title">Setup and Team Check-In</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
 
-      <div class="slot keynote">
-        <div class="time">10:00 AM - 10:30 AM</div>
-        <div class="event">
-          <div class="title">Breakfast + Welcome Ceremony</div>
-          <div class="meta"><span class="badge">Keynote</span></div>
-        </div>
-      </div>
+        <li class="event-card keynote">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">10:00 AM – 10:30 AM</span>
+            <span class="title">Breakfast + Welcome Ceremony</span>
+            <span class="badge">Keynote</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
 
-      <div class="slot workshop">
-        <div class="time">10:30 AM - 12:00 PM</div>
-        <div class="event">
-          <div class="title">Workshop and Challenge #1 - Hardware</div>
-          <div class="meta"><span class="badge">Hardware</span></div>
-        </div>
-      </div>
+        <li class="event-card workshop">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">10:30 AM – 12:00 PM</span>
+            <span class="title">Workshop and Challenge #1 - Hardware</span>
+            <span class="badge">Hardware</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
 
-      <div class="slot">
-        <div class="time">12:00 PM - 1:00 PM</div>
-        <div class="event">
-          <div class="title">Lunch</div>
-        </div>
-      </div>
+        <li class="event-card">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">12:00 PM – 1:00 PM</span>
+            <span class="title">Lunch</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
 
-      <div class="slot workshop">
-        <div class="time">1:00 PM - 2:00 PM</div>
-        <div class="event">
-          <div class="title">Workshop and Challenge #2 - Software</div>
-          <div class="meta"><span class="badge">Software</span></div>
-        </div>
-      </div>
+        <li class="event-card workshop">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">1:00 PM – 2:00 PM</span>
+            <span class="title">Workshop and Challenge #2 - Software</span>
+            <span class="badge">Software</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
 
-      <div class="slot">
-        <div class="time">2:00 PM - 6:00 PM</div>
-        <div class="event">
-          <div class="title">Team Working Time</div>
-        </div>
-      </div>
+        <li class="event-card">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">2:00 PM – 6:00 PM</span>
+            <span class="title">Team Working Time</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
 
-      <div class="slot social">
-        <div class="time">6:00 PM - 7:00 PM</div>
-        <div class="event">
-          <div class="title">Dinner Break + Social</div>
-          <div class="meta"><span class="badge">Social</span></div>
-        </div>
-      </div>
+        <li class="event-card social">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">6:00 PM – 7:00 PM</span>
+            <span class="title">Dinner Break + Social</span>
+            <span class="badge">Social</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
 
-      <div class="slot">
-        <div class="time">7:00 PM - 9:00 PM</div>
-        <div class="event">
-          <div class="title">Team Working Time</div>
-        </div>
-      </div>
+        <li class="event-card">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">7:00 PM – 9:00 PM</span>
+            <span class="title">Team Working Time</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
 
-      <div class="slot social">
-        <div class="time">9:00 PM - 12:00 AM</div>
-        <div class="event">
-          <div class="title">Final Announcements + Closing Social</div>
-          <div class="meta"><span class="badge">Social</span></div>
-        </div>
-      </div>
+        <li class="event-card social">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">9:00 PM – 12:00 AM</span>
+            <span class="title">Final Announcements + Closing Social</span>
+            <span class="badge">Social</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
 
-      <!-- Sunday -->
-      <div class="day-header"><h2>Sunday</h2></div>
-
-      <div class="slot">
-        <div class="time">9:30 AM - 10:00 AM</div>
-        <div class="event">
-          <div class="title">Setup and Check-In</div>
-        </div>
-      </div>
-
-      <div class="slot workshop">
-        <div class="time">10:00 AM - 1:00 PM</div>
-        <div class="event">
-          <div class="title">CTF with SIGPwny</div>
-          <div class="meta"><span class="badge">Challenge</span></div>
-        </div>
-      </div>
-
-      <div class="slot">
-        <div class="time">10:00 AM - 1:00 PM</div>
-        <div class="event">
-          <div class="title">Team Work Time with Lunch</div>
-        </div>
-      </div>
-
-      <div class="slot workshop">
-        <div class="time">1:00 PM - 2:00 PM</div>
-        <div class="event">
-          <div class="title">Final Presentations</div>
-          <div class="meta"><span class="badge">Presentation</span></div>
-        </div>
-      </div>
-
-      <div class="slot social">
-        <div class="time">2:00 PM - 3:00 PM</div>
-        <div class="event">
-          <div class="title">Announce Winners, Closing Ceremony</div>
-          <div class="meta"><span class="badge">Social</span></div>
-        </div>
-      </div>
-
+      </ul>
     </div>
+
+    <!-- Sunday -->
+    <div class="day">
+      <h2 class="day-header">Sunday</h2>
+      <ul class="hand">
+
+        <li class="event-card">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">9:30 AM – 10:00 AM</span>
+            <span class="title">Setup and Check-In</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
+
+        <li class="event-card workshop">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">10:00 AM – 1:00 PM</span>
+            <span class="title">CTF with SIGPwny</span>
+            <span class="badge">Challenge</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
+
+        <li class="event-card">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">10:00 AM – 1:00 PM</span>
+            <span class="title">Team Work Time with Lunch</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
+
+        <li class="event-card workshop">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">1:00 PM – 2:00 PM</span>
+            <span class="title">Final Presentations</span>
+            <span class="badge">Presentation</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
+
+        <li class="event-card social">
+          <button type="button" class="card-face">
+            <span class="corner corner-top" aria-hidden="true"></span>
+            <span class="time">2:00 PM – 3:00 PM</span>
+            <span class="title">Announce Winners, Closing Ceremony</span>
+            <span class="badge">Social</span>
+            <span class="corner corner-bottom" aria-hidden="true"></span>
+          </button>
+          <template class="details">
+            <p class="tbd">Details coming soon.</p>
+          </template>
+        </li>
+
+      </ul>
+    </div>
+
   </section>
 
+  <!-- Event pop-up (filled in by schedule.js when a card is clicked) -->
+  <dialog class="event-modal" id="event-modal" aria-labelledby="modal-title">
+    <div class="modal-inner">
+      <button type="button" class="modal-close" aria-label="Close">&times;</button>
+      <p class="modal-time"></p>
+      <h3 class="modal-title" id="modal-title"></h3>
+      <span class="modal-badge"></span>
+      <div class="modal-body"></div>
+    </div>
+  </dialog>
+
   <script src="../js/main.js"></script>
+  <script src="schedule.js"></script>
 </body>
 </html>
